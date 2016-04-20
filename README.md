@@ -2,7 +2,7 @@
 
 Naš projekt pri predmetu OPB bodo avtomobili. Ekipo sestavljamo: Jure Lah, Rok Zadravec in Marko Jordan.
 
-![ER diagram](ER_Diagram.png)
+![ER diagram](ER_Diagram_novo.png)
 
 Aplikacija bo omogočala:
 - primerjavo med izbranimi avtomobili,
