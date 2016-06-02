@@ -1,4 +1,19 @@
+<<<<<<< HEAD
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
+=======
+*~
+__pycache__
+*.aux
+*.log
+*.out
+*.pyc
+.DS_Store
+.Rhistory
+.Rproj.user
+.RData
+auth.py
+auth.R
+>>>>>>> 95948e89c82da6ecd4c81a15b7801dab801adb16
