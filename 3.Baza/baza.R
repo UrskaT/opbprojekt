@@ -1,28 +1,28 @@
 library(dplyr)
 library(RPostgreSQL)
 
-source("3.Baza/auth.R", encoding='UTF-8')
+source("3.Baza/auth.R")
 
-# Povežemo se z gonilnikom za PostgreSQL
+# Povezemo se z gonilnikom za PostgreSQL
 drv <- dbDriver("PostgreSQL")      
 
 
 # Funkcija za brisanje tabel
-# Izbris tabele, če obstaja
+# Izbris tabele, ce obstaja
 delete_table <- function(){
   # Funkcija tryCatch prekine povezavo v primeru napake
   tryCatch({
     # Vzpostavimo povezavo
     conn <- dbConnect(drv, dbname = db, host = host,
                       user = user, password = password)
-    # Če tabela obstaja, jo zbrišemo s funkcijo DROP table. 
+    # Ce tabela obstaja, jo zbrisemo s funkcijo DROP table. 
     # paziti poramo na vrstni red, saj moramo najprej zbrisati tiste, ki se navezujejo na druge
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS avto'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS znamka'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS pogon'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS cenovni razred'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS tip motorja'))
-    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS prestave'))
+    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS AVTO'))
+    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS ZNAMKE'))
+    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS POGON'))
+    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS CENOVNI_RAZRED'))
+    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS TIP_MOTORJA'))
+    dbSendQuery(conn, build_sql('DROP TABLE IF EXISTS PRESTAVE'))
   }, finally = {
     dbDisconnect(conn)
   })
@@ -48,11 +48,11 @@ AVTO<- dbSendQuery(conn, build_sql("CREATE TABLE AVTO (
                                         pospesek REAL ,
                                         doseg REAL,
                                         poraba REAL,
-                                        emisije REAL)
+                                        emisije REAL,
                                         teza REAL,
                                         dolzina REAL,
-                                        slika BLOB NOT NULL)"
-  ))
+                                        slika BYTEA NOT NULL)"
+))
 
 #Ustvarimo tabelo ZNAMKE
 ZNAMKE<- dbSendQuery(conn, build_sql("CREATE TABLE ZNAMKE (
@@ -63,20 +63,20 @@ ZNAMKE<- dbSendQuery(conn, build_sql("CREATE TABLE ZNAMKE (
 #Ustvarimo tabelo POGON
 POGON<- dbSendQuery(conn, build_sql("CREATE TABLE POGON (
                                         opis TEXT PRIMARY KEY,
-                                        tip TEXT PRIMARY KEY NOT NULL)"
+                                        tip TEXT NOT NULL)"
 ))
 
 #Ustvarimo tabelo CENOVNI RAZRED
-CENOVNI_RAZRED<- dbSendQuery(conn, build_sql("CREATE TABLE CENOVNI RAZRED (
+CENOVNI_RAZRED<- dbSendQuery(conn, build_sql("CREATE TABLE CENOVNI_RAZRED (
                                         razred INTERVAL PRIMARY KEY,
-                                        opis REAL KEY NOT NULL)"
+                                        opis REAL NOT NULL)"
 ))  
 
 #Ustvarimo tabelo TIP MOTORJA 
-TIP_MOTORJA<- dbSendQuery(conn, build_sql("CREATE TABLE TIP MOTORJA (
+TIP_MOTORJA<- dbSendQuery(conn, build_sql("CREATE TABLE TIP_MOTORJA (
                                         tip TEXT PRIMARY KEY,
                                         cilindri TEXT,
-                                        moč REAL NOT NULL)"
+                                        moc REAL NOT NULL)"
 ))   
   
   
