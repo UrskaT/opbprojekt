@@ -94,7 +94,8 @@ PRESTAVE<- dbSendQuery(conn, build_sql("CREATE TABLE PRESTAVE (
 })}
 
   
-  
+delete_table()
+create_table()  
   
   
   
